@@ -1,0 +1,19 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: build the image
+        run: docker build -t my-setup-tool .
+
+      - name: run the image
+        run: docker run -v $(pwd)/dhola:/app/config my-setup-tool Docker
